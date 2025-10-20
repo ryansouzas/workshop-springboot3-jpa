@@ -12,7 +12,7 @@ import com.projetoSB.course.repositories.UserRepository;
 @Service
 public class UserService {
 	
-	@Autowired
+	@Autowired//injeta instância do user repository 
 	private UserRepository repository;
 	
 	public List<User> findAll(){

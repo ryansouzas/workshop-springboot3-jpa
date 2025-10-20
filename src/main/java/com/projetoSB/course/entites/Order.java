@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.projetoSB.course.entites.enums.OrderStatus;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,31 +15,38 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "tb_Order")
+@Entity //define que é uma entidade
+@Table(name = "tb_Order") // muda o nome do bd para nao dar conflito com o nome da classe
 public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id//chave primaria
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //Indica o valor da chave primaria
 	private Long id;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")//para ficar no formato ISO 8601
 	private Instant moment;
+	
+	private Integer orderStatus;
 
-	@ManyToOne
-	@JoinColumn(name = "client_id")
+	@ManyToOne//N:1
+	@JoinColumn(name = "client_id") //indica qual coluna do bd será usada para fazer a junção entre duas tabelas
 	private User client;
+	
+	
 
 	public Order() {
 
 	}
 
-	public Order(Long id, Instant moment, User client) {
+	public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
 		this.id = id;
 		this.moment = moment;
+		setOrderStatus(orderStatus);
 		this.client = client;
 	}
+
+	
 
 	public Long getId() {
 		return id;
@@ -54,6 +62,17 @@ public class Order implements Serializable {
 
 	public void setMoment(Instant moment) {
 		this.moment = moment;
+	}
+	
+	public OrderStatus getOrderStatus() {
+		return OrderStatus.valueOf(orderStatus);
+	}
+
+	public void setOrderStatus(OrderStatus orderStatus) {
+		if(orderStatus != null) {
+			this.orderStatus = orderStatus.getCode();
+		}
+		
 	}
 
 	public User getClient() {

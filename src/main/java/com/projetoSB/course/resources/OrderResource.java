@@ -16,11 +16,11 @@ import com.projetoSB.course.entites.Order;
 @RequestMapping(value = "/orders")
 public class OrderResource {
 
-	@Autowired
+	@Autowired //injeta instância do order repository
 	private OrderService service;
 	
-	@GetMapping
-	public ResponseEntity<List<Order>> findAll() {
+	@GetMapping//Diz que o metodo responde a requisições http get
+	public ResponseEntity<List<Order>> findAll() { //ResponseEntity para uma resposta http completa
 		List<Order> list = service.findAll(); 
 		
 		return ResponseEntity.ok().body(list);

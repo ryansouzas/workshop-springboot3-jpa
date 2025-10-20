@@ -12,7 +12,7 @@ import com.projetoSB.course.repositories.OrderRepository;
 @Service
 public class OrderService {
 	
-	@Autowired
+	@Autowired//injeta instância do order repository
 	private OrderRepository repository;
 	
 	public List<Order> findAll(){
