@@ -12,7 +12,7 @@ import com.projetoSB.course.repositories.CategoryRepository;
 @Service
 public class CategoryService {
 	
-	@Autowired//injeta instância do user repository 
+	@Autowired//injeta instância do category repository 
 	private CategoryRepository repository;
 	
 	public List<Category> findAll(){
